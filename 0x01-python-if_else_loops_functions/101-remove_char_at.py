@@ -7,4 +7,3 @@ def remove_char_at(str, n):
             nw += str[x]
         x += 1
     return nw
-
