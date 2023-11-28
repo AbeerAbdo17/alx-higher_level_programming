@@ -2,9 +2,9 @@
 import random
 import math
 number = random.randint(-10000, 10000)
-tmp = number % 10
-if number > 10
-else number % -10
+tmp = abs(number) % 10
+if number < 0:
+    tmp = -(tmp)
 print("Last digit of {:d} is {:d} and is ".format(number, tmp), end = "")
 if tmp > 5:
     print("greater than 5")
