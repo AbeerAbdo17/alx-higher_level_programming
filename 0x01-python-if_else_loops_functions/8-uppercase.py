@@ -5,4 +5,4 @@ def uppercase(str):
         if ord(tmp) >= 97 and ord(tmp) <= 122:
             tmp = chr(ord(c) - 32)
         print("{}".format(tmp), end='')
-        print()
+    print()
