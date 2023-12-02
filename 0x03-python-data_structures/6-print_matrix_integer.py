@@ -2,10 +2,9 @@
 def print_matrix_integer(matrix=[[]]):
     if not matrix:
         return None
-    for row in matrix:
-        for i in range(len(row)):
-            if i != len(row) - 1:
-                print("{:d} ".format(row[i]), end=" ")
-            else:
-                print("{:d}".format(row[i]))
-    print()
+    for x in matrix:
+        if len(x) == 0:
+            print()
+        for j in range(len(x)):
+            print("{:d}".format(x[j]),
+                 end="\n" if j is len(x) - 1 else " ")
