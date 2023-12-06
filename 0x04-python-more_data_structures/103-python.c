@@ -31,7 +31,7 @@ void print_python_list(PyObject *p)
  */
 void print_python_bytes(PyObject *p)
 {
-	char xstr;
+	char *xstr;
 	long int xsiz, xv, xlim;
 
 	printf("[.] Bytes object info\n");
@@ -40,20 +40,24 @@ void print_python_bytes(PyObject *p)
 		printf("  [ERROR] Invalid Bytes Object\n");
 		return;
 	}
-	xsiz = ((pyVarObject *)(p))->ob_size;
-	xstr = ((pyBytesObject *)p)->ob_sval;
+
+	xsiz = ((PyVarObject *)(p))->ob_size;
+	xstr = ((PyBytesObject *)p)->ob_sval;
 	printf("  size: %ld\n", xsiz);
-	printf("  trying string: %s\n", xstr);
+	printf("  trying string: %.*s\n", xsiz, xstr);
 
 	if (xsiz > 10)
 		xlim = 10;
 	else
 		xlim = xsiz + 1;
+
 	printf("  first %ld bytes:", xlim);
 	for (xv = 0; xv < xlim; xv++)
+	{
 		if (xstr[xv] > 0)
 			printf(" %02x", xstr[xv]);
 		else
 			printf(" %02x", 256 + xstr[xv]);
+	}
 	printf("\n");
 }
