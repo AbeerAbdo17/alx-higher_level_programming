@@ -44,7 +44,7 @@ void print_python_bytes(PyObject *p)
 	xsiz = ((PyVarObject *)(p))->ob_size;
 	xstr = ((PyBytesObject *)p)->ob_sval;
 	printf("  size: %ld\n", xsiz);
-	printf("  trying string: %.*s\n", xsiz, xstr);
+	printf("  trying string: %.*s\n", (int)xsiz, xstr);
 
 	if (xsiz > 10)
 		xlim = 10;
@@ -54,10 +54,11 @@ void print_python_bytes(PyObject *p)
 	printf("  first %ld bytes:", xlim);
 	for (xv = 0; xv < xlim; xv++)
 	{
-		if (xstr[xv] > 0)
-			printf(" %02x", xstr[xv]);
+		if (xstr[xv] >= 0)
+			printf(" %02x", (unsigned char)xstr[xv]);
 		else
-			printf(" %02x", 256 + xstr[xv]);
+			printf(" %02x", 256 + (unsigned char)xstr[xv]);
 	}
 	printf("\n");
 }
+
