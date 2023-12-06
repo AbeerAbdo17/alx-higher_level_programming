@@ -7,5 +7,5 @@ def roman_to_int(roman_string):
     nv = 0
     for xv in reversed(roman_string):
         nv = rom_num[xv]
-        res += nv if res < nv else -nv
+        res += nv if res < nv * 5 else -nv
     return res
