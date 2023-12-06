@@ -3,7 +3,7 @@
 /**
  * print_python_list - Python lists
  * @p: input
-*/
+ */
 void print_python_list(PyObject *p)
 {
 	long int xsiz, xv;
@@ -28,17 +28,32 @@ void print_python_list(PyObject *p)
 /**
  * print_python_bytes - Python bytes
  * @p: input
-*/
+ */
 void print_python_bytes(PyObject *p)
 {
 	char xstr;
-	llong int xsiz, xv, xlim;
+	long int xsiz, xv, xlim;
 
 	printf("[.] Bytes object info\n");
 	if (!PyBytes_Check(p))
 	{
-		printf( "  [ERROR] Invalid Bytes Object\n");
+		printf("  [ERROR] Invalid Bytes Object\n");
 		return;
 	}
+	xsiz = ((pyVarObject *)(p))->ob_size;
+	xstr = ((pyBytesObject *)p)->ob_sval;
+	printf("  size: %ld\n", xsiz);
+	printf("  trying string: %s\n", xstr);
 
+	if (xsiz > 10)
+		xlim = 10;
+	else
+		xlim = xsiz + 1;
+	printf("  first %ld bytes:", xlim);
+	for (xv = 0; xv < xlim; xv++)
+		if (xstr[xv] > 0)
+			printf(" %02x", xstr[xv]);
+		else
+			printf(" %02x", 256 + xstr[xv]);
+	printf("\n");
 }
