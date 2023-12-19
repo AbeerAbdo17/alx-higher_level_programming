@@ -7,8 +7,6 @@ import math
 
 class MagicClass:
     """class scop"""
-
-
     def __init__(self, radius=0):
         """method scope"""
         self.__radius = 0
