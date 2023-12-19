@@ -1,10 +1,10 @@
 #!/usr/bin/python3
-"""define class"""
 
-import math
+"""define class"""
 
 
 class MagicClass:
+    import math
     """class scop"""
     def__init__(self, radius=0):
         """method scope"""
