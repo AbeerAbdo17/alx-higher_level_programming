@@ -58,10 +58,10 @@ class SinglyLinkedList:
 
     def __str__(self):
         """method scop"""
-        res = ""
+        res = []
 
         curr = self.__head
         while curr is not None:
-            res += str(curr.data) + "\n"
-            curr = curr.next_node
-        return res
+            res.append(str(crr.data))
+            crr = res.next_node
+        return '\n'.join(res)
