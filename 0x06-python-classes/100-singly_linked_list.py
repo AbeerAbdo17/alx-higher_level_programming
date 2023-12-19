@@ -47,7 +47,7 @@ class SinglyLinkedList:
         """method scop"""
         nw = Node(value)
         if self.__head is None:
-            nw.next_node = self.head
+            nw.next_node = self.__head
             self.__head = nw
         else:
             curr = self.__head
@@ -61,6 +61,6 @@ class SinglyLinkedList:
         res = []
         curr = self.__head
         while curr is not None:
-            res.append(str(crr.data))
-            crr = crr.next_node
+            res.append(str(curr.data))
+            curr = curr.next_node
         return ('\n'.join(res))
