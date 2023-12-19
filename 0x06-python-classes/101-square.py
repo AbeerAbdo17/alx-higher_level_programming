@@ -57,12 +57,11 @@ class Square:
 
     def __str__(self):
         """method scop"""
-        result = ""
-        if self.__size == 0:
-            result += "\n"
-        else:
-            for _ in range(self.__position[1]):
-                result += "\n"
-            for _ in range(self.__size):
-                result += " " * self.__position[0] + "#" * self.__size + "\n"
-            return result.strip()
+        if self.__size != 0:
+            [print("") for xv in range(0, self.__position[1])]
+        for xv in range(0, self.__size):
+            [print(" ", end="") for yv in range(0, self.__position[0])]
+            [print("", end="#") for zv in range(0, self.__size)]
+            if xv != self.__size - 1:
+                print("")
+        return ("")
