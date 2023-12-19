@@ -46,7 +46,7 @@ class SinglyLinkedList:
     def sorted_insert(self, value):
         """method scop"""
         nw = Node(value)
-        if self.__head is None or value < self.__head.data:
+        if self.__head is None:
             nw.next_node = self.head
             self.__head = nw
         else:
@@ -59,9 +59,8 @@ class SinglyLinkedList:
     def __str__(self):
         """method scop"""
         res = []
-
         curr = self.__head
         while curr is not None:
             res.append(str(crr.data))
-            crr = res.next_node
-        return '\n'.join(res)
+            crr = crr.next_node
+        return ('\n'.join(res))
