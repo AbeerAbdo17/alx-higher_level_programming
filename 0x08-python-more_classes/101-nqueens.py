@@ -1,98 +1,85 @@
 #!/usr/bin/python3
-""" nqueens N"""
-import sys
+"""comment"""
 
 
-def initboard(n):
+from sys import argv
+
+if len(argv) != 2:
+    print('Usage: nqueens N')
+    exit(1)
+
+if not argv[1].isdigit():
+    print('N must be a number')
+    exit(1)
+
+N = int(argv[1])
+
+if N < 4:
+    print('N must be at least 4')
+    exit(1)
+
+
+def board_column_gen(board=[]):
     """method scop"""
-    board = []
-    [board.append([]) for i in range(n)]
-    [row.append(' ') for i in range(n) for row in board]
-    return (board)
+    if len(board):
+        for row in board:
+            row.append(0)
+    else:
+        for row in range(N):
+            board.append([0])
+    return board
 
 
-def board_deepcopy(board):
+def add_queen(board, row, col):
+    """ method scop"""
+    board[row][col] = 1
+
+
+def new_queen_safe(board, row, col):
     """method scop"""
-    if isinstance(board, list):
-        return list(map(board_deepcopy, board))
-    return (board)
+    x = row
+    y = col
+
+    for i in range(1, N):
+        if (y - i) >= 0:
+            if (x - i) >= 0:
+                if board[x - i][y - i]:
+                    return False
+            if board[x][y - i]:
+                return False
+            if (x + i) < N:
+                if board[x + i][y - i]:
+                    return False
+    return True
 
 
-def get_solution(board):
+def coordinate_format(candidates):
     """method scop"""
-    solution = []
-    for r in range(len(board)):
-        for c in range(len(board)):
-            if board[r][c] == "Q":
-                solution.append([r, c])
-                break
-    return (solution)
+    holberton = []
+    for x, attempt in enumerate(candidates):
+        holberton.append([])
+        for i, row in enumerate(attempt):
+            holberton[x].append([])
+            for j, col in enumerate(row):
+                if col:
+                    holberton[x][i].append(i)
+                    holberton[x][i].append(j)
+    return holberton
 
 
-def xout(board, row, col):
-    """method scop"""
-    for c in range(col + 1, len(board)):
-        board[row][c] = "x"
-    for c in range(col - 1, -1, -1):
-        board[row][c] = "x"
-    for r in range(row + 1, len(board)):
-        board[r][col] = "x"
-    for r in range(row - 1, -1, -1):
-        board[r][col] = "x"
-    c = col + 1
-    for r in range(row + 1, len(board)):
-        if c >= len(board):
-            break
-        board[r][c] = "x"
-        c += 1
-    c = col - 1
-    for r in range(row - 1, -1, -1):
-        if c < 0:
-            break
-        board[r][c]
-        c -= 1
-    c = col + 1
-    for r in range(row - 1, -1, -1):
-        if c >= len(board):
-            break
-        board[r][c] = "x"
-        c += 1
-    c = col - 1
-    for r in range(row + 1, len(board)):
-        if c < 0:
-            break
-        board[r][c] = "x"
-        c -= 1
+candidates = []
+candidates.append(board_column_gen())
 
-
-def recursive_solve(board, row, queens, solutions):
-    """method scop"""
-    if queens == len(board):
-        solutions.append(get_solution(board))
-        return (solutions)
-    for c in range(len(board)):
-        if board[row][c] == " ":
-            tmp_board = board_deepcopy(board)
-            tmp_board[row][c] = "Q"
-            xout(tmp_board, row, c)
-            solutions = recursive_solve(tmp_board, row + 1,
-                                        queens + 1, solutions)
-
-            return (solutions)
-
-
-if __name__ == "__main__":
-    if len(sys.argv) != 2:
-        print("Usage: nqueens N")
-        sys.exit(1)
-    if sys.argv[1].isdigit() is False:
-        print("N must be a number")
-        sys.exit(1)
-    if int(sys.argv[1]) < 4:
-        print("N must be at least 4")
-        sys.exit(1)
-    board = initboard(int(sys.argv[1]))
-    solutions = recursive_solve(board, 0, 0, [])
-    
-    for sol in solutions:
-        print(sol)
+for col in range(N):
+    new_candidates = []
+    for matrix in candidates:
+        for row in range(N):
+            if new_queen_safe(matrix, row, col):
+                temp = [line[:] for line in matrix]
+                add_queen(temp, row, col)
+                if col < N - 1:
+                    board_column_gen(temp)
+                new_candidates.append(temp)
+    candidates = new_candidates
+for item in coordinate_format(candidates):
+    print(item)
