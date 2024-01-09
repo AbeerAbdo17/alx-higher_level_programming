@@ -9,7 +9,7 @@ from 6-load_from_json_file import load_from_json_file
 fn = list(sys.argv[1:])
 
 try:
-    old_data = load_from_json_file("add_item.json")
+    olddata = load_from_json_file("add_item.json")
 except Exception:
     olddata = []
 olddata.extend(arglist)
