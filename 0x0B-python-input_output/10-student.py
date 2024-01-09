@@ -15,11 +15,12 @@ class Student:
         """method scop"""i
         try:
             for attr in attrs:
-                if attrs is None:
+                if type(attrs) is str:
                     return self.__dict__
         except Exception:
             return self.__dict__
         x = dict()
         for k, v in self.__dict__.items():
-            x[k] = v
+            if k in attrs:
+                x[k] = v
         return x
