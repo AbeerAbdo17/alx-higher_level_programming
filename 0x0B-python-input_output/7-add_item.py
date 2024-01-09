@@ -6,10 +6,11 @@ import sys
 from 5-save_to_json_file import save_to_json_file
 from 6-load_from_json_file import load_from_json_file
 
-fn = "add_item.json"
+fn = list(sys.argv[1:])
+
 try:
-    my_list = load_from_json_file(fn)
-except FileNotFoundError:
-    my_list = []
-my_list.extend(sys.argv[1:])
-save_to_json_file(my_list, filename)
+    old_data = load_from_json_file("add_item.json")
+except Exception:
+    olddata = []
+olddata.extend(arglist)
+save_to_json_file(olddata, "add_item.json")
