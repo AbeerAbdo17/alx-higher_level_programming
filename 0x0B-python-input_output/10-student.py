@@ -12,7 +12,7 @@ class Student:
         self.age = age
 
     def to_json(self, attrs=None):
-        """method scop"""i
+        """method scop"""
         try:
             for attr in attrs:
                 if type(attrs) is str:
